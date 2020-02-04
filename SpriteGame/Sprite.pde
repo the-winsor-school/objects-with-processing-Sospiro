@@ -26,6 +26,7 @@ abstract class Sprite
   {
     this.location = new Vector2(x, y);
     this.velocity = new Vector2(dx, dy);
+    //this constructor is different from the constructor above because this contructor accounts for the sprite moving (with dx, dy) instead of just staying still (with 0, 0)
   }
 
   // check to see if this Sprite is sitting on a particular color.
@@ -39,12 +40,21 @@ abstract class Sprite
   void chase(Sprite other)
   {
     float speed = (float)velocity.magnitude();
-    float delX = other.location.x - this.location.x; 
-    float delY = other.location.y - this.location.y;
-    float mag = sqrt(delX*delX + delY*delY);
+    //float delX = other.location.x - this.location.x; 
+    //float delY = other.location.y - this.location.y;
+    Vector2 diff = other.location.subtract(this.location);
+    
+    //float mag = sqrt(delX*delX + delY*delY);
+    double mag = diff.magnitude();
+    
 
-    if (delX != 0) this.location.x += (delX / mag) * speed;
-    if (delY != 0) this.location.y += (delY / mag) * speed;
+    //if (delX != 0) this.location.x += (delX / mag) * speed;
+    //if (delY != 0) this.location.y += (delY / mag) * speed;
+    
+    if(diff.x != 0) location.x += (diff.x / mag) * speed;
+    if(diff.y!= 0) location.y += (diff.y / mag) * speed;
+    
+    
   }
 
   // make this Sprite move at the speed := |<dx, dy>| 

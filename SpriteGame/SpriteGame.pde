@@ -4,7 +4,7 @@ Blob player;
 
 void setup()
 {
-  size(500, 500);
+  size(600, 600);
   
   // Blob parameters are: 
   // x (px), y (px), radius (px), 
@@ -14,7 +14,7 @@ void setup()
 
 void draw()
 {
-  background(255,255,255);
+  background(150,350,165);
   
   // make the player move automatically.
   player.move();

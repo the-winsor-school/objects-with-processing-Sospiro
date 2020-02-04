@@ -16,6 +16,7 @@ class Vector2 {
     //uses the Pythagorean Theorem to find the magnitude
   }
   
+  //[return type] [name](parameters) -> all part of the method header below
   Vector2 add(Vector2 other) {
     float newX = other.x + this.x;
     float newY = other.y + this.y;
