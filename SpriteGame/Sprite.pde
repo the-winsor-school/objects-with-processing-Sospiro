@@ -43,10 +43,14 @@ abstract class Sprite
     //float delX = other.location.x - this.location.x; 
     //float delY = other.location.y - this.location.y;
     Vector2 diff = other.location.subtract(this.location);
+    //defines a new vector that is the difference betweent the "this" vector and the "other" vector
     
     //float mag = sqrt(delX*delX + delY*delY);
     double mag = diff.magnitude();
-    
+    //creates a variable "mag" that stores the magnitude of this new vector "diff"
+    //the "interface" of the class - ex: the names of all these vectors and methods - ex: (diff.magnitude())
+    //the "implementation" is the code inside methods and such
+    //overall, "interface" is the code the user often sees and interacts with the code, often using the methods written behind the scenes - and the "implementation" is the sort of behind-the-scenes code within methods and such, the code blocks that actually define what a method and such does
 
     //if (delX != 0) this.location.x += (delX / mag) * speed;
     //if (delY != 0) this.location.y += (delY / mag) * speed;
