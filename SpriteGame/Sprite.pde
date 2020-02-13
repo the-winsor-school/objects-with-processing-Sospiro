@@ -8,10 +8,12 @@ abstract class Sprite
   // this Sprite's current location.
   //float x, y;
 
-  // this Sprite's current velocity vector.
+  //this Sprite's current velocity vector.
   //float dx, dy;
   Vector2 location;
   Vector2 velocity;
+  boolean perp = false;
+  //this bool is for my modified move() method further below
 
   // initialize a Sprite at a given coordinate.
   Sprite(float x, float y)
@@ -57,6 +59,7 @@ abstract class Sprite
     
     if(diff.x != 0) location.x += (diff.x / mag) * speed;
     if(diff.y!= 0) location.y += (diff.y / mag) * speed;
+    //these lines 58-59 replace lines 55-56 using the new Vector2, "diff"
     
     
   }
@@ -67,26 +70,31 @@ abstract class Sprite
   void chase(Sprite other, float minFollowDistance)
   {
     float speed = (float)velocity.magnitude();
-    float delX = other.location.x - this.location.x;
-    float delY = other.location.y - this.location.y;
-    float mag = sqrt(delX*delX + delY*delY);
+    //float delX = other.location.x - this.location.x;
+    //float delY = other.location.y - this.location.y;
+    //float mag = sqrt(delX*delX + delY*delY);
+    //Vector2 diff = other.location.subtract(this.location);
+    Vector2 diff = new Vector2(other.location.x - this.location.x, other.location.y - this.location.y);
+    float mag = sqrt(diff.x * diff.x + diff.y * diff.y);
+    //defines a new vector that is the difference of the two vectors
+    //this statement + declaration of the diff variable (Vector2 type) is a more concise way and more human-readable way of writing the 3 commented out lines in lines 70-73 (delX and delY stuff)
 
     if (mag > 0 && mag <= minFollowDistance) 
     {
-      if (delY < delX)
+      if (diff.y < diff.x)
       {
-        this.location.x -= (delY / mag) * speed * 0.5;
-        this.location.y += (delX / mag) * speed * 0.5;
+        this.location.x -= (diff.y / mag) * speed * 0.5;
+        this.location.y += (diff.x / mag) * speed * 0.5;
       } else
       {
-        this.location.x += (delY / mag) * speed * 0.5;
-        this.location.y -= (delX / mag) * speed * 0.5;
+        this.location.x += (diff.y / mag) * speed * 0.5;
+        this.location.y -= (diff.x / mag) * speed * 0.5;
       }
       return;
     }
 
-    if (delX != 0) this.location.x += (delX / mag) * speed;
-    if (delY != 0) this.location.y += (delY / mag) * speed;
+    if (diff.x != 0) this.location.x += (diff.x / mag) * speed;
+    if (diff.y != 0) this.location.y += (diff.y / mag) * speed;
   }
 
   // make this Sprite move at the speed := |<dx, dy>|
@@ -94,12 +102,14 @@ abstract class Sprite
   void followMouse()
   {
     float speed = (float)this.velocity.magnitude();
-    float delX = mouseX - this.location.x;
-    float delY = mouseY - this.location.y;
-    float mag = sqrt(delX*delX + delY*delY);
+    Vector2 diff = new Vector2(mouseX - this.location.x, mouseY - this.location.y);
+    //float delY = mouseY - this.location.y;
+    //float mag = sqrt(delX*delX + delY*delY);
+    //Vector2 diff = other.location.subtract(this.location);
+    float mag = sqrt(diff.x * diff.x + diff.y * diff.y);
 
-    if (delX != 0) this.location.x += (delX / mag) * speed;
-    if (delY != 0) this.location.y += (delY / mag) * speed;
+    if (diff.x != 0) this.location.x += (diff.x / mag) * speed;
+    if (diff.y != 0) this.location.y += (diff.y / mag) * speed;
   }
 
   // move this sprite according to it's current velocity vector
@@ -109,30 +119,40 @@ abstract class Sprite
     this.location = this.location.add(this.velocity);
 
     // make sure we don't go out of bounds
-    if (this.location.x < 0)
+    if (this.location.x < 0) 
     { 
+      //if the blob hits the left side of the screen...
       this.location.x += width;
     }
     if (this.location.x > width) 
     {
+      //if the blob hits the right side of the screen...
       this.location.x -= width;
     }
     if (this.location.y < 0) 
     {
+      //if the blob hits the bottom side of the screen...
       this.location.y += height;
     }
     if (this.location.y > height)
     {
+      //if the blob hits the top side of the screen...
       this.location.y -= height;
     }
+   
+    
+    
   }
 
   // get the distance between centers of this Sprite and another
   float distanceTo(Sprite other)
   {
-    float delX = other.location.x - this.location.x;
-    float delY = other.location.y - this.location.y;
-    return sqrt(delX*delX + delY*delY);
+    //float delX = other.location.x - this.location.x;
+    //float delY = other.location.y - this.location.y;
+    //return sqrt(delX*delX + delY*delY);
+    Vector2 diff = other.location.subtract(this.location);
+    return sqrt(diff.x * diff.x + diff.y * diff.y);
+    
   }
 
   // Control this sprite using the Arrow Keys

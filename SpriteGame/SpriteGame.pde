@@ -18,7 +18,7 @@ void setup()
   other = new Blob(50, 50, 10, 1.25, 1.5, color(300, 300, 500));
   blobby = new Blob(30, 50, 30, 2, 3, color(140, 140, 170));
   miniBlobby = new Blob(50, 50, 10, 1.25, 1.5, color(380, 230, 115));
-  bigBlobby = new Blob(200, 10, 200, 0.6, 0.8, color(10, 500, 300));
+  bigBlobby = new Blob(100, 10, 100, 0.6, 0.8, color(10, 500, 300));
   //sets bigBlobby to be pretty big with a slower speed and a light blue color
   //overall, I'm setting all these blobs to have a diversity of sizes and colors and speeds
 }
