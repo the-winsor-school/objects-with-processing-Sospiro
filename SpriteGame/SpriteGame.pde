@@ -21,7 +21,7 @@ void draw()
   // make the player move automatically.
   
   player.keyboardControl();
-  other.chase(player, 50);
+  other.chase(player, 10);
   
   // draw the player on the screen.
   player.drawSprite();
